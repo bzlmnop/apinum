@@ -126,7 +126,7 @@ def well_number_from_string(string: str,
 
 # Create a class for storing well numbers, parameters inlude, state code,
 # county code, well number, wellbore code, and completion code.
-class APINumber:
+class APINumber():
     """A class for storing API numbers. It accepts a string, a file_path
     to a LAS file, or a LASFile object as input. The class will attempt
     to extract the longest API number from the input.

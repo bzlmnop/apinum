@@ -1,6 +1,6 @@
 
 import json
-import src.apinum as apinum
+from src.apinum import apinum
 import random
 
 # Load /src/well_numbers.json into a dictionary

@@ -1,11 +1,14 @@
 
 import json
+import os
 import random
-import src.apinum as apinum
+import src.apinum.apinum as apinum
 
-# Load /src/well_numbers.json into a dictionary
+# Load /src/apinum/well_numbers.json into a dictionary
+dir_path = os.path.dirname(os.path.realpath(__file__))
+known_numbers_path = os.path.join(dir_path, "well_numbers.json")
 
-with open("./json/well_numbers.json", "r") as f:
+with open(known_numbers_path, "r") as f:
     known_numbers = json.load(f)
 
 

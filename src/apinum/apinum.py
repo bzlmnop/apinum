@@ -232,3 +232,5 @@ class APINumber():
                 self.well_number
             )
             return
+        else:
+            raise ValueError("No API number found in input string.")

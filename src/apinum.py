@@ -6,11 +6,11 @@ import json
 from os import path
 
 valid_codes_path = (
-    path.dirname(path.abspath(__file__)) + "\\well_numbers.json"
+    path.dirname(path.abspath(__file__)) + "json/well_numbers.json"
 )
 
 codes_to_names_path = (
-    path.dirname(path.abspath(__file__)) + "\\well_number_to_state_county.json"
+    path.dirname(path.abspath(__file__)) + "json/well_number_to_state_county.json"
 )
 
 

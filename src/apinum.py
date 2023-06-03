@@ -2,7 +2,7 @@
 
 import re
 import json
-import lasfile
+# import lasfile
 from os import path
 
 valid_codes_path = (
@@ -79,50 +79,50 @@ def well_number_from_string(string: str,
         return None
 
 
-def well_number_from_las(las_path: str, extract_from_path: bool = False):
-    """
-    Extracts the longest API or UWI well number from a LAS file.
+# def well_number_from_las(las_path: str, extract_from_path: bool = False):
+#     """
+#     Extracts the longest API or UWI well number from a LAS file.
 
-    Args:
-        las_path (str): The path to the LAS file.
-        extract_from_path (bool): If True, attempts to extract the well
-            number from the file path if no well number is found in the
-            LAS file. Defaults to False.
+#     Args:
+#         las_path (str): The path to the LAS file.
+#         extract_from_path (bool): If True, attempts to extract the well
+#             number from the file path if no well number is found in the
+#             LAS file. Defaults to False.
 
-    Returns:
-        str or None: The longest well number found in the LAS file, or
-            extracted from the file path if extract_from_path is True
-            and no well number is found in the LAS file. Returns None if
-            no well number is found.
+#     Returns:
+#         str or None: The longest well number found in the LAS file, or
+#             extracted from the file path if extract_from_path is True
+#             and no well number is found in the LAS file. Returns None if
+#             no well number is found.
 
-    """
-    # Read the LAS file and get the well section
-    well = lasfile.LASFile(file_path=las_path).well
+#     """
+#     # Read the LAS file and get the well section
+#     well = lasfile.LASFile(file_path=las_path).well
 
-    # Extract well numbers from the well section
-    well_numbers = []
-    for key in well.keys():
-        if re.search(r"(?i)api|uwi", key):
-            well_numbers.append(
-                well_number_from_string(
-                    well[key].value
-                )
-            )
+#     # Extract well numbers from the well section
+#     well_numbers = []
+#     for key in well.keys():
+#         if re.search(r"(?i)api|uwi", key):
+#             well_numbers.append(
+#                 well_number_from_string(
+#                     well[key].value
+#                 )
+#             )
 
-    # Remove None values and return the longest well number
-    well_numbers = [x for x in well_numbers if x is not None]
-    if well_numbers:
-        longest_well_number = max(well_numbers, key=well_numbers.count)
-        return longest_well_number
+#     # Remove None values and return the longest well number
+#     well_numbers = [x for x in well_numbers if x is not None]
+#     if well_numbers:
+#         longest_well_number = max(well_numbers, key=well_numbers.count)
+#         return longest_well_number
 
-    # Attempt to extract well number from file path if requested
-    elif extract_from_path:
-        well_number = well_number_from_string(las_path)
-        if well_number:
-            return well_number
+#     # Attempt to extract well number from file path if requested
+#     elif extract_from_path:
+#         well_number = well_number_from_string(las_path)
+#         if well_number:
+#             return well_number
 
-    # If no well number is found, return None
-    return None
+#     # If no well number is found, return None
+#     return None
 
 
 # Create a class for storing well numbers, parameters inlude, state code,
@@ -159,30 +159,36 @@ class APINumber:
             or an LASFile object.
     """
     def __init__(self, input):
+        # if isinstance(input, str):
+        #     # If the input is a string attempt to extract an API number
+        #     # from it
+        #     str_extracted_number = well_number_from_string(input)
+        #     # If no API number is found, test if the input is a valid
+        #     # .las file path and attempt to extract the API number from
+        #     # the file
+        #     if path.isfile(input) and input.endswith(".las"):
+        #         las_extracted_number = well_number_from_las(input)
+        #         # If the first 10 digits of the API number extracted
+        #         # from the file match the first 10 digits of the API
+        #         # number extracted from the string, use the API number
+        #         # extracted from the file
+        #         if (
+        #             str_extracted_number is not None and
+        #             las_extracted_number is not None and
+        #             str_extracted_number[:10] == las_extracted_number[:10]
+        #         ):
+        #             self.extracted_number = las_extracted_number
+        # elif isinstance(input, lasfile.LASFile):
+        #     self.extracted_number = well_number_from_las(input)
+        # else:
+        #     raise TypeError("Input must be a string, a valid .las file "
+        #                     "path, or an LASFile object.")
         if isinstance(input, str):
             # If the input is a string attempt to extract an API number
             # from it
-            str_extracted_number = well_number_from_string(input)
-            # If no API number is found, test if the input is a valid
-            # .las file path and attempt to extract the API number from
-            # the file
-            if path.isfile(input) and input.endswith(".las"):
-                las_extracted_number = well_number_from_las(input)
-                # If the first 10 digits of the API number extracted
-                # from the file match the first 10 digits of the API
-                # number extracted from the string, use the API number
-                # extracted from the file
-                if (
-                    str_extracted_number is not None and
-                    las_extracted_number is not None and
-                    str_extracted_number[:10] == las_extracted_number[:10]
-                ):
-                    self.extracted_number = las_extracted_number
-        elif isinstance(input, lasfile.LASFile):
-            self.extracted_number = well_number_from_las(input)
+            self.extracted_number = well_number_from_string(input)
         else:
-            raise TypeError("Input must be a string, a valid .las file "
-                            "path, or an LASFile object.")
+            raise TypeError("Input must be a string")
         # Generate the formatted and unformatted API numbers
         if self.extracted_number is not None:
             self.state_code = self.extracted_number[:2]

@@ -231,4 +231,4 @@ class APINumber():
                 self.county_code +
                 self.well_number
             )
-            return self
+            return

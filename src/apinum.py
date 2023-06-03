@@ -23,7 +23,7 @@ codes_to_names = load_json(codes_to_names_path)
 
 
 def well_number_from_string(string: str,
-                            json_path: str = "valid_codes.json"):
+                            json_path: str = "./json/valid_codes.json"):
     """Extracts well numbers from a string based on valid codes in a JSON file.
 
     Args:

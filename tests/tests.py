@@ -5,8 +5,10 @@ import random
 import src.apinum.apinum as apinum
 
 # Load /src/apinum/well_numbers.json into a dictionary
-dir_path = os.path.dirname(os.path.realpath(__file__))
-known_numbers_path = os.path.join(dir_path, "well_numbers.json")
+parent_dir_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+known_numbers_path = os.path.join(
+    parent_dir_path, "src", "apinum", "well_numbers.json"
+)
 
 with open(known_numbers_path, "r") as f:
     known_numbers = json.load(f)

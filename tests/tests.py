@@ -5,7 +5,7 @@ import src.apinum as apinum
 
 # Load /src/well_numbers.json into a dictionary
 
-with open("json/well_numbers.json", "r") as f:
+with open("./json/well_numbers.json", "r") as f:
     known_numbers = json.load(f)
 
 

@@ -6,11 +6,11 @@ import json
 # from os import path
 
 valid_codes_path = (
-    "json/well_numbers.json"
+    "./json/well_numbers.json"
 )
 
 codes_to_names_path = (
-    "json/well_number_to_state_county.json"
+    "./json/well_number_to_state_county.json"
 )
 
 

@@ -2,15 +2,15 @@
 
 import re
 import json
-# import lasfile
-from os import path
+# # import lasfile
+# from os import path
 
 valid_codes_path = (
-    path.dirname(path.abspath(__file__)) + "json/well_numbers.json"
+    "json/well_numbers.json"
 )
 
 codes_to_names_path = (
-    path.dirname(path.abspath(__file__)) + "json/well_number_to_state_county.json"
+    "json/well_number_to_state_county.json"
 )
 
 

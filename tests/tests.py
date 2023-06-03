@@ -9,10 +9,10 @@ with open("src/well_numbers.json", "r") as f:
     known_numbers = json.load(f)
 
 
-# Define a function to create a list of strings to test the 
-# well_number_from_string function. With, test strings containing 
+# Define a function to create a list of strings to test the
+# well_number_from_string function. With, test strings containing
 # formatted and non formatted API numbers that are 10, 12, and 14 digits
-# long, preceded and followed by many different characters including 
+# long, preceded and followed by many different characters including
 # special characters. All api numbers should be generated from the known
 # api numbers in the known_numbers dictionary above.
 def test_well_number_from_string(iterations=1000, known_numbers=known_numbers):

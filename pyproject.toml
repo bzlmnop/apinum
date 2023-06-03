@@ -17,4 +17,4 @@ requires-python = ">=3.7"
 homepage = "https://github.com/bzlmnop/apinum"
 
 [project.scripts]
-apinum = "apinum.__main__:main"
+apinum = "apinum.apinum.__main__:main"

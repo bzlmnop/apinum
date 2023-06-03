@@ -1,16 +1,15 @@
 # apinum.py
 
+import os
 import re
 import json
 # # import lasfile
 # from os import path
+dir_path = os.path.dirname(os.path.realpath(__file__))
+valid_codes_path = os.path.join(dir_path, 'well_numbers.json')
 
-valid_codes_path = (
-    "./json/well_numbers.json"
-)
-
-codes_to_names_path = (
-    "./json/well_number_to_state_county.json"
+codes_to_names_path = os.path.join(
+    dir_path, "well_number_to_state_county.json"
 )
 
 

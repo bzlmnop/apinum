@@ -123,7 +123,7 @@ def well_number_from_string(string: str,
 #     # If no well number is found, return None
 #     return None
 
-well_number_to_state_county = json.loads('well_number_to_state_county.json')
+well_number_to_state_county = json.load(open('well_number_to_state_county.json'))
 
 # Create a class for storing well numbers, parameters inlude, state code,
 # county code, well number, wellbore code, and completion code.

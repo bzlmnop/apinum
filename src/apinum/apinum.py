@@ -199,9 +199,12 @@ class APINumber():
         # Generate the formatted and unformatted API numbers
         if self.extracted_number is not None:
             self.state_code = self.extracted_number[:2]
-            self.state_name = well_number_to_state_county[self.state_code][0]
+            
             self.county_code = self.extracted_number[2:5]
-            self.county_name = well_number_to_state_county[self.state_code][1][self.county_code]
+            if self.state_code in well_number_to_state_county.keys():
+                self.state_name = well_number_to_state_county[self.state_code][0]
+                if self.county_code in well_number_to_state_county[self.state_code][1].keys():
+                    self.county_name = well_number_to_state_county[self.state_code][1][self.county_code]
             self.well_number = self.extracted_number[5:10]
             self.wellbore_code = self.extracted_number[10:12]
             self.completion_code = self.extracted_number[12:14]

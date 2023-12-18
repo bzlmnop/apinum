@@ -21,8 +21,7 @@ def load_json(json_path):
 codes_to_names = load_json(codes_to_names_path)
 
 
-def well_number_from_string(string: str,
-                            json_path: str = valid_codes_path):
+def well_number_from_string(string: str, json_path: str = valid_codes_path):
     """Extracts well numbers from a string based on valid codes in a JSON file.
 
     Args:
@@ -40,43 +39,40 @@ def well_number_from_string(string: str,
     # Find all 10 to 14 digit strings in the input string
     matches = re.findall(r'(?=(\d{10,14}))', re.sub(r'[^\d]', '', string))
 
+    # Store positions of matches in the original string
+    positions = [m.start(0) for m in re.finditer(r'\d', string)]
+
     well_numbers = []
     for match in matches:
         # If the string is 11 digits long, remove the last digit
         if len(match) == 11:
             match = match[:10]
         # If the string is 13 digits long, remove the last digits
-        if len(match) == 13:
+        elif len(match) == 13:
             match = match[:12]
-        # If the string is 10, 12, or 14 digits long and the first two
-        # digits are in the valid state codes
-        if (
-            len(match) in [10, 12, 14] and
-            match[:2] in valid_codes.keys()
-        ):
-            # If the string is 14 digits long and the third through
-            # fifth digits are in the valid codes
+
+        # Handling for 10, 12, or 14 digit numbers
+        if len(match) in [10, 12, 14] and match[:2] in valid_codes.keys():
+            # Additional check for 12 and 14 digit numbers
+            if len(match) in [12, 14]:
+                pos_10th = positions[len(match) - 4]
+                pos_11th = positions[len(match) - 3]
+
+                # Check if there are any letters between the 10th and 11th digits in the original string
+                substring = string[pos_10th:pos_11th + 1]
+                if re.search(r'[a-zA-Z]', substring):
+                    continue  # Skip appending if letters are found
+
+            # Appending logic
             if len(match) == 14 and match[2:5] in valid_codes[match[:2]]:
                 well_numbers.append(match)
-            # If the string is 12 digits long and the third through
-            # fifth digits are in the valid codes
             elif len(match) == 12 and match[2:5] in valid_codes[match[:2]]:
                 well_numbers.append(match + "00")
-            # If the string is 10 digits long and the first two and
-            # third through fifth digits are in the valid codes
-            elif (
-                len(match) == 10 and
-                match[:2] in valid_codes.keys() and
-                match[2:5] in valid_codes[match[:2]]
-            ):
+            elif len(match) == 10 and match[2:5] in valid_codes[match[:2]]:
                 well_numbers.append(match + "0000")
 
-    # If any well numbers were found, return the most commonly occurring one
-    if well_numbers:
-        return max(well_numbers, key=well_numbers.count)
-    else:
-        return None
-
+    # Return the most commonly occurring well number, if any
+    return max(well_numbers, key=well_numbers.count) if well_numbers else None
 
 # def well_number_from_las(las_path: str, extract_from_path: bool = False):
 #     """

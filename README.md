@@ -44,11 +44,9 @@ print(api_number.formatted_14_digit)
 - `TypeError`: Input is not a valid string.
 - `ValueError`: No API number found in the input string.
 
-## Configuration
-The library uses JSON files for valid API codes and mappings. Ensure these files are correctly set up in your working directory.
-
 ## Contribution
 Contributions are welcome. Follow standard practices for contributing to Python packages, such as forking the repository, making changes, and submitting a pull request.
 
 ## License
-Include the license here to inform users of their rights when using and modifying the APINum library.
+[MIT](https://choosealicense.com/licenses/mit/)
+```
